@@ -41,6 +41,10 @@ h1{font:800 clamp(2.6rem,6vw,3.6rem)/0.98 var(--display);letter-spacing:-0.02em;
 .links a{font-weight:500}
 h2{font:800 1.9rem/1.1 var(--display);margin:0 0 20px;letter-spacing:-0.01em}
 section{margin-bottom:64px}
+.job{border-left:6px solid var(--ink);padding:2px 0 2px 20px;margin-bottom:22px}
+.job h3{font:800 1.2rem/1.2 var(--display);margin:0}
+.job .status{color:var(--muted);font-size:.92rem;margin:2px 0 6px}
+.job p:last-child{margin:0;max-width:62ch}
 .project{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--accent);padding:22px 24px;margin-bottom:18px}
 .project h3{font:800 1.35rem/1.2 var(--display);margin:0 0 4px}
 .project .status{font-size:.9rem;color:var(--muted);margin:0 0 10px}
@@ -76,6 +80,10 @@ footer{color:var(--muted);font-size:.9rem}
       <div id="about"></div>
     </section>
     <section>
+      <h2>Experience</h2>
+      <div id="experience"></div>
+    </section>
+    <section>
       <h2>Projects</h2>
       <div id="projects"></div>
     </section>
@@ -96,13 +104,21 @@ const SITE = {
   about: [
     "I work with data: SQL, Python and Excel reporting, plus turning client feedback into product priorities. I spent three years at Circana managing enterprise data relationships, and I now handle business development and marketing at Vikas Packing Industry.",
     "I'm looking for roles in account management, customer success and data analysis, where I can combine client relationships with data. I juggle many threads well and pick up new platforms quickly.",
-    "Outside work I run a homelab, and I've applied machine learning and regression to real datasets on climate and COVID-19. I speak English, French, Hindi, Urdu and Japanese."
+    "Outside work I'm a builder and a self-learner. I enjoy home engineering and teaching myself skills I was never taught in a traditional classroom, which is how my homelab came about. I run and stay active, cook, read and game, and I'm truly multi-faceted. I've also applied machine learning and regression to real datasets on climate and COVID-19, and I speak English, French, Hindi, Urdu and Japanese."
   ],
   links: [
     { label: "GitHub", url: "https://github.com/fireball28" },
     { label: "LinkedIn", url: "https://linkedin.com/in/shashagg" },
     { label: "Email", url: "mailto:shashwat28@live.com" },
     { label: "Résumé (PDF)", url: "ShashwatAgg_Resume.pdf" }
+  ],
+  experience: [
+    { title: "Manager, Business Development & Marketing", org: "Vikas Packing Industry", dates: "Jun 2025 – Present",
+      text: "Coordinate partner and vendor onboarding and pricing compliance, and act as the main contact for customer enquiries. Marketing work led to a 30% rise in brand visibility and a 20% rise in client acquisition." },
+    { title: "Account Specialist", org: "Circana, Inc.", dates: "Aug 2022 – Dec 2024",
+      text: "Managed CRM trackers and reporting for 10+ enterprise clients, demoed data platforms and API dashboards, and turned client feedback into feature requests for product and engineering. Overhauled departmental reporting by connecting each report to an OData feed, so updating one takes a single \u201cRefresh data\u201d click instead of manual exports. Automating reporting improved efficiency by 40%." },
+    { title: "Quality Assurance Specialist", org: "Index Exchange", dates: "May 2021 – Jan 2022",
+      text: "Wrote automated scripts to test end-to-end advertising campaigns." }
   ],
   projects: [
     {
@@ -124,21 +140,28 @@ const SITE = {
       status: "University of Toronto",
       text: "Built a Gradient Boosting forecasting model that uses economic and COVID-19 indicators to predict how quickly economies recover.",
       tags: ["Python", "Machine learning", "Gradient Boosting"],
-      links: []
+      links: [{ label: "Source on GitHub", url: "https://github.com/fireball28/Predicting-the-Economic-Recovery-from-the-Covid-19-Pandemic-using-Previous-Recessions" }]
     },
     {
       title: "Climate change in India",
       status: "University of Toronto",
       text: "Built a Python data pipeline and regression workflow. It identified carbon emissions as a significant predictor of rising temperatures.",
       tags: ["Python", "Data pipelines", "Regression"],
-      links: []
+      links: [{ label: "Source on GitHub", url: "https://github.com/fireball28/Climate-Change-in-India" }]
     },
     {
       title: "Effectiveness of NPIs and vaccines against COVID-19",
       status: "University of Toronto · Grade 91%",
       text: "Applied statistical models in STATA to Our World in Data datasets to measure how much each intervention reduced COVID-19 spread.",
       tags: ["STATA", "Statistical modelling", "OWID data"],
-      links: []
+      links: [{ label: "Source on GitHub", url: "https://github.com/fireball28/Effectiveness-of-NPI-and-Vaccines" }]
+    },
+    {
+      title: "Conference Simulator",
+      status: "University of Toronto · CSC207 Software Design",
+      text: "A Java project from my software design course.",
+      tags: ["Java", "Software design"],
+      links: [{ label: "Source on GitHub", url: "https://github.com/fireball28/Conference_Simulator_CSC207" }]
     }
   ],
   skills: [
@@ -146,6 +169,7 @@ const SITE = {
     { group: "Data & analytics", items: "Data cleaning and validation, regression, machine learning, Tableau, Jupyter, Excel (Pivot Tables, XLOOKUP, Power Pivot)" },
     { group: "Platforms", items: "Salesforce, Dynamics CRM, MySQL, Git, WordPress, MailChimp" },
     { group: "Homelab", items: "Linux, Docker, self-hosting, DNS and Pi-hole, home networking, storage and backups" },
+    { group: "Off the clock", items: "Running and fitness, cooking, reading, gaming, home engineering" },
     { group: "Spoken languages", items: "English, French, Hindi, Urdu, Japanese" }
   ],
   footer: "Built by hand with HTML, CSS and a little JavaScript."
@@ -172,6 +196,14 @@ $("now").textContent = SITE.now;
 $("footer").textContent = SITE.footer;
 SITE.about.forEach(t => $("about").appendChild(el("p", {}, t)));
 SITE.links.forEach(l => { const li = el("li"); li.appendChild(link(l)); $("links").appendChild(li); });
+
+SITE.experience.forEach(j => {
+  const a = el("article", { class: "job" });
+  a.appendChild(el("h3", {}, j.title));
+  a.appendChild(el("p", { class: "status" }, j.org + " · " + j.dates));
+  a.appendChild(el("p", {}, j.text));
+  $("experience").appendChild(a);
+});
 
 SITE.projects.forEach(p => {
   const a = el("article", { class: "project" });
