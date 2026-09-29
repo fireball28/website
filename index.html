@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shashwat Aggarwal – Data & Analytics</title>
+<meta name="description" content="Portfolio of Shashwat Aggarwal: data projects, homelab and skills.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF1F4; --ink:#12263A; --muted:#4F6478; --grid:#D3DEE7;
+  --accent:#2450D6; --mark:#FFD23F; --card:#F8FAFB; --line:#B7C6D3;
+  --display:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1B28; --ink:#E6EEF5; --muted:#9BB0C2; --grid:#1B2E40;
+    --card:#152435; --line:#2C4258; --accent:#7EA2FF;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink); font:400 1.0625rem/1.6 var(--body);
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--mark);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 24px 80px;display:grid;grid-template-columns:300px 1fr;gap:56px}
+aside{position:sticky;top:48px;align-self:start}
+h1{font:800 clamp(2.6rem,6vw,3.6rem)/0.98 var(--display);letter-spacing:-0.02em;margin:0 0 16px}
+.role{font-size:1.15rem;margin:0 0 20px}
+.now{background:var(--mark);color:#12263A;padding:10px 12px;font-size:.95rem;border-radius:4px;margin:0 0 24px}
+.links{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.links a{font-weight:500}
+h2{font:800 1.9rem/1.1 var(--display);margin:0 0 20px;letter-spacing:-0.01em}
+section{margin-bottom:64px}
+.project{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--accent);padding:22px 24px;margin-bottom:18px}
+.project h3{font:800 1.35rem/1.2 var(--display);margin:0 0 4px}
+.project .status{font-size:.9rem;color:var(--muted);margin:0 0 10px}
+.project p{margin:0 0 12px;max-width:62ch}
+.tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;padding:0;margin:0 0 12px}
+.tags li{border:1px solid var(--line);padding:1px 9px;font-size:.88rem;border-radius:99px}
+.project .go{display:flex;gap:18px;font-weight:500}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.skills div{border-top:3px solid var(--ink);padding-top:10px}
+.skills h3{font:800 1.05rem var(--display);margin:0 0 6px}
+.skills p{margin:0;color:var(--muted)}
+.about p{max-width:62ch}
+footer{color:var(--muted);font-size:.9rem}
+@media (max-width:820px){
+  .wrap{grid-template-columns:1fr;gap:32px;padding-top:32px}
+  aside{position:static}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside>
+    <h1 id="name"></h1>
+    <p class="role" id="role"></p>
+    <p class="now" id="now"></p>
+    <ul class="links" id="links"></ul>
+  </aside>
+
+  <main>
+    <section class="about">
+      <h2>About</h2>
+      <div id="about"></div>
+    </section>
+    <section>
+      <h2>Projects</h2>
+      <div id="projects"></div>
+    </section>
+    <section>
+      <h2>Toolbox</h2>
+      <div class="skills" id="skills"></div>
+    </section>
+    <footer id="footer"></footer>
+  </main>
+</div>
+
+<script>
+/* ========= EDIT THIS BLOCK ONLY ========= */
+const SITE = {
+  name: "Shashwat Aggarwal",
+  role: "Account management, customer success and data analytics, with a homelab on the side.",
+  now: "Currently building: adding storage drives to my homelab so it can back up all my devices.",
+  about: [
+    "I work with data: SQL, Python and Excel reporting, plus turning client feedback into product priorities. I spent three years at Circana managing enterprise data relationships, and I now handle business development and marketing at Vikas Packing Industry.",
+    "I'm looking for roles in account management, customer success and data analysis, where I can combine client relationships with data. I juggle many threads well and pick up new platforms quickly.",
+    "Outside work I run a homelab, and I've applied machine learning and regression to real datasets on climate and COVID-19. I speak English, French, Hindi, Urdu and Japanese."
+  ],
+  links: [
+    { label: "GitHub", url: "https://github.com/fireball28" },
+    { label: "LinkedIn", url: "https://linkedin.com/in/shashagg" },
+    { label: "Email", url: "mailto:shashwat28@live.com" },
+    { label: "Résumé (PDF)", url: "ShashwatAgg_Resume.pdf" }
+  ],
+  projects: [
+    {
+      title: "Homelab",
+      status: "Ongoing · New Delhi",
+      text: "Built a home server from scratch on an old computer. It runs ZimaOS and self-hosts Jellyfin for video and Navidrome for music. I'm now adding more drives so that it can hold backups of all my devices, and I'm setting up OpenGym on it as well.",
+      tags: ["ZimaOS", "Linux", "Docker", "Jellyfin", "Navidrome", "OpenGym", "Networking", "Storage & backups"],
+      links: []
+    },
+    {
+      title: "Pi-hole network-wide ad blocking",
+      status: "In progress · moving from Raspberry Pi 3 to the homelab",
+      text: "Deployed Pi-hole on a Raspberry Pi 3 to block ads and trackers for every device on my network. Now moving it onto my home server so it runs alongside my other services.",
+      tags: ["Pi-hole", "Raspberry Pi", "DNS", "Home networking"],
+      links: []
+    },
+    {
+      title: "Predicting economic recovery from COVID-19",
+      status: "University of Toronto",
+      text: "Built a Gradient Boosting forecasting model that uses economic and COVID-19 indicators to predict how quickly economies recover.",
+      tags: ["Python", "Machine learning", "Gradient Boosting"],
+      links: []
+    },
+    {
+      title: "Climate change in India",
+      status: "University of Toronto",
+      text: "Built a Python data pipeline and regression workflow. It identified carbon emissions as a significant predictor of rising temperatures.",
+      tags: ["Python", "Data pipelines", "Regression"],
+      links: []
+    },
+    {
+      title: "Effectiveness of NPIs and vaccines against COVID-19",
+      status: "University of Toronto · Grade 91%",
+      text: "Applied statistical models in STATA to Our World in Data datasets to measure how much each intervention reduced COVID-19 spread.",
+      tags: ["STATA", "Statistical modelling", "OWID data"],
+      links: []
+    }
+  ],
+  skills: [
+    { group: "Languages", items: "Python, SQL, R, STATA, JavaScript, Java, MATLAB, VBA" },
+    { group: "Data & analytics", items: "Data cleaning and validation, regression, machine learning, Tableau, Jupyter, Excel (Pivot Tables, XLOOKUP, Power Pivot)" },
+    { group: "Platforms", items: "Salesforce, Dynamics CRM, MySQL, Git, WordPress, MailChimp" },
+    { group: "Homelab", items: "Linux, Docker, self-hosting, DNS and Pi-hole, home networking, storage and backups" },
+    { group: "Spoken languages", items: "English, French, Hindi, Urdu, Japanese" }
+  ],
+  footer: "Built by hand with HTML, CSS and a little JavaScript."
+};
+/* ========================================= */
+
+const $ = id => document.getElementById(id);
+const el = (tag, attrs = {}, text = "") => {
+  const n = document.createElement(tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (text) n.textContent = text;
+  return n;
+};
+const link = l => {
+  const a = el("a", { href: l.url }, l.label);
+  if (/^https?:/.test(l.url)) { a.target = "_blank"; a.rel = "noopener"; }
+  return a;
+};
+
+document.title = SITE.name + " – " + SITE.role;
+$("name").textContent = SITE.name;
+$("role").textContent = SITE.role;
+$("now").textContent = SITE.now;
+$("footer").textContent = SITE.footer;
+SITE.about.forEach(t => $("about").appendChild(el("p", {}, t)));
+SITE.links.forEach(l => { const li = el("li"); li.appendChild(link(l)); $("links").appendChild(li); });
+
+SITE.projects.forEach(p => {
+  const a = el("article", { class: "project" });
+  a.appendChild(el("h3", {}, p.title));
+  a.appendChild(el("p", { class: "status" }, p.status));
+  a.appendChild(el("p", {}, p.text));
+  const tags = el("ul", { class: "tags" });
+  p.tags.forEach(t => tags.appendChild(el("li", {}, t)));
+  a.appendChild(tags);
+  const go = el("div", { class: "go" });
+  p.links.forEach(l => go.appendChild(link(l)));
+  a.appendChild(go);
+  $("projects").appendChild(a);
+});
+
+SITE.skills.forEach(s => {
+  const d = el("div");
+  d.appendChild(el("h3", {}, s.group));
+  d.appendChild(el("p", {}, s.items));
+  $("skills").appendChild(d);
+});
+</script>
+</body>
+</html>
